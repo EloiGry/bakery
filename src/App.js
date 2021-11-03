@@ -17,6 +17,7 @@ class App extends Component {
     }
 
     this.handleButtonClick = this.handleButtonClick.bind(this)
+    this.addItem = this.addItem.bind(this)
   }
 
   handleButtonClick (event) {
@@ -37,11 +38,11 @@ class App extends Component {
     console.log(this.state.items)
     return (
       <div className="container">
-        <Button children="Add" handleClick={this.handleButtonClick} isSelected={this.state.activeTab === "Add"} addItem={this.addItem}/>
+        <Button children="Add" handleClick={this.handleButtonClick} isSelected={this.state.activeTab === "Add"} />
         <Button children="List" handleClick={this.handleButtonClick} isSelected={this.state.activeTab === "List"}/>
         <Button children="Pay" handleClick={this.handleButtonClick} isSelected={this.state.activeTab === "Pay"}/>
-        {this.state.activeTab === "Add" && <Add />}
-        {this.state.activeTab === "List" && <List />}
+        {this.state.activeTab === "Add" && <Add addItem={this.addItem} />}
+        {this.state.activeTab === "List" && <List items={this.state.items} />}
         {this.state.activeTab === "Pay" && <Pay />}
       </div>
     );

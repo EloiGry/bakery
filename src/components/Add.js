@@ -22,6 +22,7 @@ class Add extends Component {
     }
 
     render() {
+        const {addItem} = this.props
         return (
             <>
                 <h1>
@@ -30,7 +31,7 @@ class Add extends Component {
                 <input onChange={this.handleNameChange} type="text" />
                 <input onChange={this.handlePriceChange} type="range" min="1" max="10" />
                 <span> {this.state.price} </span>
-                <button onClick={() => this.props.addItem}> </button>
+                <button className="btn btn-outline-primary" onClick={() => {addItem(this.state.name, this.state.price)}}> </button>
             </>
         );
     }
