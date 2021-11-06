@@ -1,40 +1,61 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class Add extends Component {
-    constructor() {
-        super()
+  constructor() {
+    super()
 
-        this.state = {
-            name: "",
-            price: 0
-        }
-
-        this.handleNameChange = this.handleNameChange.bind(this)
-        this.handlePriceChange = this.handlePriceChange.bind(this)
+    this.state = {
+      name: "",
+      price: 0
     }
+    
+    this.handleNameChange = this.handleNameChange.bind(this)
+    this.handlePriceChange = this.handlePriceChange.bind(this)
+  }
 
-    handleNameChange (event) {
-        this.setState ({name : event})
-    }
+  handleNameChange(e) {
+    this.setState({ name: e.target.value })
+  }
 
-    handlePriceChange (event) {
-        this.setState ({price : 0})
-    }
+  handlePriceChange(e) {
+    this.setState({ price: e.target.value })
+  }
 
-    render() {
-        const {addItem} = this.props
-        return (
-            <>
-                <h1>
-                    Add
-                </h1>
-                <input onChange={this.handleNameChange} type="text" />
-                <input onChange={this.handlePriceChange} type="range" min="1" max="10" />
-                <span> {this.state.price} </span>
-                <button className="btn btn-outline-primary" onClick={() => {addItem(this.state.name, this.state.price)}}> </button>
-            </>
-        );
-    }
+  render() {
+    const { name, price } = this.state
+
+    return (
+      <>
+        <h1>Add</h1>
+
+        <label className="form-label">Name</label>
+        <input
+          className="form-control mb-4"
+          type="text"
+          onChange={this.handleNameChange}
+          value={name}
+        />
+
+        <label className="form-label">Price: {price}$</label>
+        <br />
+        <input
+          type="range"
+          onChange={this.handlePriceChange}
+          min="1"
+          max="10"
+          value={price}
+        />
+
+        <br />
+        <button
+          className="btn mt-3 btn-outline-primary"
+          onClick={() => this.props.addItem(name, price)}
+        >
+          Ajouter
+        </button>
+      </>
+    );
+  }
 }
 
-export default Add;
+export default Add

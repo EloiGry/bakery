@@ -1,18 +1,17 @@
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Button from './components/Button'
-import Add from './components/Add'
-import List from './components/List'
-import Pay from './components/Pay'
+import React, { Component } from "react"
 
-import React, { Component } from 'react'
+import "bootstrap/dist/css/bootstrap.min.css"
+import Button from "./components/Button"
+import Add from "./components/Add"
+import List from "./components/List"
+import Pay from "./components/Pay"
 
 class App extends Component {
   constructor() {
     super()
-    
+
     this.state = {
-      activeTab: "add",
+      activeTab: "Add",
       items: []
     }
 
@@ -20,33 +19,52 @@ class App extends Component {
     this.addItem = this.addItem.bind(this)
   }
 
-  handleButtonClick (event) {
-    event = event.target.innerText
-    // console.log(event)
-    this.setState ({activeTab : event})
+  handleButtonClick(str) {
+    this.setState({ activeTab: str })
   }
 
-  addItem (name, price) {
+  addItem(name, price) {
     const newItem = {
-      name : name,
-      price : price
+      name: name,
+      price: price
     }
-    this.setState ({items : [...this.state.items, newItem]})
+
+    this.setState({ items: [...this.state.items, newItem] })
   }
 
   render() {
-    console.log(this.state.items)
+    const { activeTab, items } = this.state
+  
     return (
-      <div className="container">
-        <Button children="Add" handleClick={this.handleButtonClick} isSelected={this.state.activeTab === "Add"} />
-        <Button children="List" handleClick={this.handleButtonClick} isSelected={this.state.activeTab === "List"}/>
-        <Button children="Pay" handleClick={this.handleButtonClick} isSelected={this.state.activeTab === "Pay"}/>
-        {this.state.activeTab === "Add" && <Add addItem={this.addItem} />}
-        {this.state.activeTab === "List" && <List items={this.state.items} />}
-        {this.state.activeTab === "Pay" && <Pay />}
+      <div className="container my-5">
+        <h1>Bakery</h1>
+
+        <div className="mb-5">
+          <Button
+            text="Add"
+            handleClick={this.handleButtonClick}
+            isSelected={activeTab === "Add"}
+          />
+
+          <Button
+            text="List"
+            handleClick={this.handleButtonClick}
+            isSelected={activeTab === "List"}
+          />
+
+          <Button
+            text="Pay"
+            handleClick={this.handleButtonClick}
+            isSelected={activeTab === "Pay"}
+          />
+        </div>
+
+        {activeTab === "Add" && <Add addItem={this.addItem} />}
+        {activeTab === "List" && <List items={items} />}
+        {activeTab === "Pay" && <Pay />}
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
